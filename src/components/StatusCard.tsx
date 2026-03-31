@@ -9,9 +9,10 @@ import "./StatusCard.css";
 
 const { Text } = Typography;
 
-export interface UsageBar {
-  /** Value from 0 to 8 (number of filled bars out of 8) */
-  filled: number;
+export interface UsageGaugeItem {
+  label: string;
+  /** Percentage value 0–100 */
+  percent: number;
 }
 
 export interface SegmentedBarItem {
@@ -32,29 +33,51 @@ export interface StatusCardProps {
   subtitle: string;
   /** Small metadata text below subtitle */
   metadata: string;
-  /** 0-8 filled vertical bars representing usage (12.5% increments) */
-  usageBars: number;
+  /** Array of 7 resource usage gauges with label and percent */
+  usageGauges: UsageGaugeItem[];
   /** Key-value stats shown to the right of the usage bars */
   stats: StatItem[];
   /** Segments for the bottom horizontal bar chart */
   segments: SegmentedBarItem[];
   /** Callback when share icon is clicked */
   onShare?: () => void;
+  /** Show percentage numbers above gauge bars */
+  showGaugePercent?: boolean;
   /** Optional expandable content */
   expandContent?: React.ReactNode;
 }
 
-function UsageGauge({ filled }: { filled: number }) {
-  const totalBars = 8;
+const MAX_BAR_HEIGHT = 32;
+
+function UsageGauge({
+  gauges,
+  showPercent,
+}: {
+  gauges: UsageGaugeItem[];
+  showPercent: boolean;
+}) {
   return (
     <div className="usage-gauge">
-      {Array.from({ length: totalBars }, (_, i) => (
-        <Tooltip key={i} title={`${((i + 1) * 12.5).toFixed(1)}%`}>
-          <div
-            className={`gauge-bar ${i < filled ? "filled" : "empty"}`}
-          />
-        </Tooltip>
-      ))}
+      {gauges.map((g, i) => {
+        const clamped = Math.max(0, Math.min(100, g.percent));
+        const barHeight = Math.max(2, (clamped / 100) * MAX_BAR_HEIGHT);
+        return (
+          <Tooltip key={i} title={`${g.label}: ${clamped}%`}>
+            <div className="gauge-column">
+              {showPercent && (
+                <span className="gauge-percent">{Math.round(clamped)}</span>
+              )}
+              <div className="gauge-track">
+                <div
+                  className={`gauge-fill ${clamped > 0 ? "filled" : "empty"}`}
+                  style={{ height: barHeight }}
+                />
+              </div>
+              <span className="gauge-label">{g.label.slice(0, 3)}</span>
+            </div>
+          </Tooltip>
+        );
+      })}
     </div>
   );
 }
@@ -90,10 +113,11 @@ export default function StatusCard({
   title,
   subtitle,
   metadata,
-  usageBars,
+  usageGauges,
   stats,
   segments,
   onShare,
+  showGaugePercent = true,
   expandContent,
 }: StatusCardProps) {
   const [expanded, setExpanded] = useState(false);
@@ -122,7 +146,7 @@ export default function StatusCard({
 
       {/* Middle: usage gauge + stats */}
       <div className="card-middle">
-        <UsageGauge filled={usageBars} />
+        <UsageGauge gauges={usageGauges} showPercent={showGaugePercent ?? true} />
         <div className="card-stats">
           {stats.map((stat, i) => (
             <div key={i} className="stat-row">

@@ -1,6 +1,72 @@
-/* Reset base styles for demo */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* ── App shell ── */
+.app-shell {
+  min-height: 100vh;
+  background: var(--page-bg);
+  padding: 32px 24px;
+  padding-top: 64px;
+  transition: background 0.3s;
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+}
+
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 2px 8px var(--shadow-sm);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.toolbar-btn:hover {
+  background: var(--btn-hover);
+  color: var(--text-primary);
+}
+
+.toolbar-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ── Card grid: 3 columns ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
