@@ -1,0 +1,215 @@
+/* ── Card container ── */
+.status-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px 20px 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s;
+}
+
+.status-card:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Header ── */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.card-title {
+  font-size: 1.17em !important;
+  font-weight: 600 !important;
+  color: #111827 !important;
+  line-height: 1.3 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-subtitle {
+  font-size: 1.17em !important;
+  color: #9ca3af !important;
+  line-height: 1.3 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-metadata {
+  font-size: 0.75rem !important;
+  color: #6b7280 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* ── Icon buttons ── */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 15px;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.icon-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* ── Middle section: gauge + stats ── */
+.card-middle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Usage gauge */
+.usage-gauge {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gauge-bar {
+  flex: 1;
+  min-width: 6px;
+  max-width: 18px;
+  height: 28px;
+  border-radius: 4px 4px 2px 2px;
+  transition: background 0.2s;
+}
+
+.gauge-bar.filled {
+  background: linear-gradient(180deg, #3b82f6, #06b6d4);
+}
+
+.gauge-bar.empty {
+  background: #e5e7eb;
+}
+
+/* Stats */
+.card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.stat-row {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.stat-label {
+  font-size: 0.8rem !important;
+  color: #6b7280 !important;
+}
+
+.stat-value {
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  color: #374151 !important;
+}
+
+/* ── Bottom section: segmented bar ── */
+.card-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.segmented-bar {
+  display: flex;
+  flex: 1;
+  height: 26px;
+  border-radius: 6px;
+  overflow: hidden;
+  gap: 1.5px;
+  background: #f3f4f6;
+}
+
+.segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  transition: opacity 0.15s;
+}
+
+.segment:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.segment:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.segment:only-child {
+  border-radius: 6px;
+}
+
+.segment-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 6px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.segment:hover {
+  opacity: 0.85;
+}
+
+.expand-btn {
+  flex-shrink: 0;
+}
+
+/* ── Expandable area ── */
+.card-expand {
+  padding: 10px 0 4px;
+  border-top: 1px solid #f3f4f6;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
