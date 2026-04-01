@@ -17,6 +17,25 @@
   box-shadow: 0 3px 12px var(--shadow-md);
 }
 
+/* ── Priority borders ── */
+.status-card.card-warning {
+  border: 2px solid var(--border-warning);
+  box-shadow: 0 1px 4px var(--shadow-sm), 0 0 8px var(--glow-warning);
+}
+
+.status-card.card-critical {
+  border: 2px solid var(--border-critical);
+  box-shadow: 0 1px 4px var(--shadow-sm), 0 0 8px var(--glow-critical);
+}
+
+.status-card.card-warning:hover {
+  box-shadow: 0 3px 12px var(--shadow-md), 0 0 12px var(--glow-warning);
+}
+
+.status-card.card-critical:hover {
+  box-shadow: 0 3px 12px var(--shadow-md), 0 0 12px var(--glow-critical);
+}
+
 /* ── Header ── */
 .card-header {
   display: flex;

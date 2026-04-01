@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import StatusCard, { type StatusCardProps } from "./components/StatusCard";
-import { SunOutlined, MoonOutlined, EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+import { SunOutlined, MoonOutlined, EyeOutlined, EyeInvisibleOutlined, AlertOutlined } from "@ant-design/icons";
 import "./App.css";
 
-const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent">[] = [
+const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent" | "showPriority">[] = [
   {
     title: "PROJECT: Alpha",
     subtitle: "Status: Active",
@@ -33,6 +33,7 @@ const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent">[] = [
     title: "PROJECT: Bravo",
     subtitle: "Status: Degraded",
     metadata: "updated 15m ago",
+    priority: "critical",
     usageGauges: [
       { label: "CPU", percent: 88 },
       { label: "MEM", percent: 92 },
@@ -105,6 +106,7 @@ const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent">[] = [
     title: "PROJECT: Echo",
     subtitle: "Status: Active",
     metadata: "updated 30m ago",
+    priority: "warning",
     usageGauges: [
       { label: "CPU", percent: 55 },
       { label: "MEM", percent: 60 },
@@ -130,6 +132,7 @@ const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent">[] = [
     title: "PROJECT: Foxtrot",
     subtitle: "Status: Critical",
     metadata: "updated 2m ago",
+    priority: "critical",
     usageGauges: [
       { label: "CPU", percent: 98 },
       { label: "MEM", percent: 95 },
@@ -177,6 +180,7 @@ const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent">[] = [
     title: "PROJECT: Hotel",
     subtitle: "Status: Scaling",
     metadata: "updated 8m ago",
+    priority: "warning",
     usageGauges: [
       { label: "CPU", percent: 70 },
       { label: "MEM", percent: 75 },
@@ -227,6 +231,7 @@ const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent">[] = [
 function App() {
   const [dark, setDark] = useState(false);
   const [showPercent, setShowPercent] = useState(true);
+  const [showPriority, setShowPriority] = useState(true);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -245,6 +250,15 @@ function App() {
           <span className="toolbar-label">{showPercent ? "Hide %" : "Show %"}</span>
         </button>
         <button
+          className={`toolbar-btn ${showPriority ? "toolbar-btn-active" : ""}`}
+          onClick={() => setShowPriority(!showPriority)}
+          aria-label={showPriority ? "Hide priority borders" : "Show priority borders"}
+          title={showPriority ? "Hide alerts" : "Show alerts"}
+        >
+          <AlertOutlined />
+          <span className="toolbar-label">{showPriority ? "Alerts" : "Alerts"}</span>
+        </button>
+        <button
           className="toolbar-btn"
           onClick={() => setDark(!dark)}
           aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
@@ -254,9 +268,22 @@ function App() {
         </button>
       </div>
 
+      {showPriority && (
+        <div className="legend">
+          <span className="legend-item">
+            <span className="legend-dot legend-dot-critical" />
+            Critical
+          </span>
+          <span className="legend-item">
+            <span className="legend-dot legend-dot-warning" />
+            Warning
+          </span>
+        </div>
+      )}
+
       <div className="card-grid">
         {cards.map((card, i) => (
-          <StatusCard key={i} {...card} showGaugePercent={showPercent} />
+          <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} />
         ))}
       </div>
     </div>

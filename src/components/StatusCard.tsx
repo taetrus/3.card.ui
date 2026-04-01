@@ -26,6 +26,8 @@ export interface StatItem {
   value: string;
 }
 
+export type CardPriority = "critical" | "warning";
+
 export interface StatusCardProps {
   /** Bold title line, e.g. "PROJECT: Alpha" */
   title: string;
@@ -43,6 +45,10 @@ export interface StatusCardProps {
   onShare?: () => void;
   /** Show percentage numbers above gauge bars */
   showGaugePercent?: boolean;
+  /** Priority level — adds a colored border */
+  priority?: CardPriority;
+  /** Whether to show priority borders */
+  showPriority?: boolean;
   /** Optional expandable content */
   expandContent?: React.ReactNode;
 }
@@ -118,12 +124,16 @@ export default function StatusCard({
   segments,
   onShare,
   showGaugePercent = true,
+  priority,
+  showPriority = false,
   expandContent,
 }: StatusCardProps) {
   const [expanded, setExpanded] = useState(false);
 
+  const priorityClass = showPriority && priority ? `card-${priority}` : "";
+
   return (
-    <div className="status-card">
+    <div className={`status-card ${priorityClass}`}>
       {/* Header */}
       <div className="card-header">
         <div className="header-text">

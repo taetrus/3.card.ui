@@ -23,6 +23,14 @@
   --toggle-bg: #e5e7eb;
   --toggle-fg: #374151;
 
+  --border-warning: #b8860b;
+  --border-critical: #dc2626;
+  --glow-warning: rgba(184, 134, 11, 0.15);
+  --glow-critical: rgba(220, 38, 38, 0.15);
+
+  --legend-warning-dot: #b8860b;
+  --legend-critical-dot: #dc2626;
+
   color-scheme: light;
 }
 
@@ -46,6 +54,14 @@
 
   --toggle-bg: #334155;
   --toggle-fg: #e2e8f0;
+
+  --border-warning: #d4a017;
+  --border-critical: #ef4444;
+  --glow-warning: rgba(212, 160, 23, 0.25);
+  --glow-critical: rgba(239, 68, 68, 0.25);
+
+  --legend-warning-dot: #d4a017;
+  --legend-critical-dot: #ef4444;
 
   color-scheme: dark;
 }
