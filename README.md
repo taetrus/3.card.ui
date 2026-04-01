@@ -4,17 +4,17 @@ A responsive status card dashboard built with React, TypeScript, and Vite. Displ
 
 ## Screenshots
 
-### Light Theme (Desktop)
-![Light theme - 3 column grid](docs/screenshots/light-desktop.png)
+### Light Theme — Normal View (Desktop)
+![Light theme - 3 column grid with segmented gauges](docs/screenshots/light-desktop.png)
 
-### Dark Theme (Desktop)
-![Dark theme - 3 column grid](docs/screenshots/dark-desktop.png)
+### Dark Theme — Compact View (Desktop)
+![Dark theme - 4 column compact grid](docs/screenshots/dark-desktop.png)
 
-### Responsive - Tablet (768px)
-![Tablet view - 2 column grid](docs/screenshots/responsive-tablet.png)
+### Responsive — Compact View (Tablet 768px)
+![Tablet view - 2 column compact grid](docs/screenshots/responsive-tablet.png)
 
-### Responsive - Mobile (375px)
-![Mobile view - single column](docs/screenshots/responsive-mobile.png)
+### Responsive — Normal View (Mobile 375px)
+![Mobile view - single column with icon toolbar](docs/screenshots/responsive-mobile.png)
 
 ## Features
 
@@ -24,7 +24,9 @@ A responsive status card dashboard built with React, TypeScript, and Vite. Displ
 - **100% gauges highlighted** in amber/orange to signal resource saturation
 - **Percentage Labels** on gauges with a global toggle to show/hide
 - **Priority Borders** — red for critical cards, gold for warning cards, with a legend and toggle to enable/disable
+- **Compact View** — 4-column dense layout with title-only headers, mini gauges (3 states), thin status bars, and vertical stats
 - **Dark Theme** with a one-click toggle (sun/moon icon)
+- **Responsive Toolbar** — labels auto-hide on small screens, buttons wrap to fit
 - **Segmented Status Bar** showing error/warning/info distribution
 - **Expandable Cards** with additional detail panels
 - **Tooltips** on gauges and segments for precise values
