@@ -293,7 +293,7 @@ function App() {
 
       <div className="card-grid">
         {cards.map((card, i) => (
-          <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} segmentedGauge={segmentedGauge} />
+          <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} segmentedGauge={segmentedGauge} onShare={() => {}} />
         ))}
       </div>
     </div>

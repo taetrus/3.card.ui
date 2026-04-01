@@ -169,15 +169,16 @@
 
 /* Segmented gauge */
 .gauge-track-segmented {
-  display: flex;
   flex-direction: column-reverse;
-  gap: 2px;
+  gap: 1.5px;
   align-items: stretch;
 }
 
 .gauge-segment {
-  flex: 1;
-  border-radius: 2px;
+  flex: 1 1 0%;
+  min-height: 0;
+  max-height: none;
+  border-radius: 1.5px;
   transition: background 0.2s;
 }
 
