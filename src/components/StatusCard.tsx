@@ -45,6 +45,8 @@ export interface StatusCardProps {
   onShare?: () => void;
   /** Show percentage numbers above gauge bars */
   showGaugePercent?: boolean;
+  /** Show segmented gauge bars instead of solid */
+  segmentedGauge?: boolean;
   /** Priority level — adds a colored border */
   priority?: CardPriority;
   /** Whether to show priority borders */
@@ -54,31 +56,53 @@ export interface StatusCardProps {
 }
 
 const MAX_BAR_HEIGHT = 32;
+const SEGMENT_COUNT = 8;
 
 function UsageGauge({
   gauges,
   showPercent,
+  segmented,
 }: {
   gauges: UsageGaugeItem[];
   showPercent: boolean;
+  segmented: boolean;
 }) {
   return (
     <div className="usage-gauge">
       {gauges.map((g, i) => {
         const clamped = Math.max(0, Math.min(100, g.percent));
-        const barHeight = Math.max(2, (clamped / 100) * MAX_BAR_HEIGHT);
+        const isMaxed = clamped >= 100;
+        const colorClass = isMaxed ? "maxed" : clamped > 0 ? "filled" : "empty";
+
         return (
           <Tooltip key={i} title={`${g.label}: ${clamped}%`}>
             <div className="gauge-column">
               {showPercent && (
-                <span className="gauge-percent">{Math.round(clamped)}</span>
+                <span className={`gauge-percent ${isMaxed ? "gauge-percent-maxed" : ""}`}>
+                  {Math.round(clamped)}
+                </span>
               )}
-              <div className="gauge-track">
-                <div
-                  className={`gauge-fill ${clamped > 0 ? "filled" : "empty"}`}
-                  style={{ height: barHeight }}
-                />
-              </div>
+              {segmented ? (
+                <div className="gauge-track gauge-track-segmented">
+                  {Array.from({ length: SEGMENT_COUNT }, (_, si) => {
+                    const segThreshold = ((si + 1) / SEGMENT_COUNT) * 100;
+                    const isFilled = clamped >= segThreshold;
+                    return (
+                      <div
+                        key={si}
+                        className={`gauge-segment ${isFilled ? colorClass : "empty"}`}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="gauge-track">
+                  <div
+                    className={`gauge-fill ${colorClass}`}
+                    style={{ height: Math.max(2, (clamped / 100) * MAX_BAR_HEIGHT) }}
+                  />
+                </div>
+              )}
               <span className="gauge-label">{g.label.slice(0, 3)}</span>
             </div>
           </Tooltip>
@@ -124,6 +148,7 @@ export default function StatusCard({
   segments,
   onShare,
   showGaugePercent = true,
+  segmentedGauge = false,
   priority,
   showPriority = false,
   expandContent,
@@ -156,7 +181,7 @@ export default function StatusCard({
 
       {/* Middle: usage gauge + stats */}
       <div className="card-middle">
-        <UsageGauge gauges={usageGauges} showPercent={showGaugePercent ?? true} />
+        <UsageGauge gauges={usageGauges} showPercent={showGaugePercent ?? true} segmented={segmentedGauge ?? false} />
         <div className="card-stats">
           {stats.map((stat, i) => (
             <div key={i} className="stat-row">

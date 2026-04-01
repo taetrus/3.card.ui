@@ -20,6 +20,8 @@ A responsive status card dashboard built with React, TypeScript, and Vite. Displ
 
 - **9 Status Cards** in a responsive 3-column grid (3 cols > 2 cols > 1 col)
 - **7 Resource Gauges** per card (CPU, MEM, DSK, NET, GPU, I/O, THR) with proportional fill bars and background tracks
+- **Solid / Segmented gauge modes** — toggle between continuous fill and 8-segment blocks
+- **100% gauges highlighted** in amber/orange to signal resource saturation
 - **Percentage Labels** on gauges with a global toggle to show/hide
 - **Priority Borders** — red for critical cards, gold for warning cards, with a legend and toggle to enable/disable
 - **Dark Theme** with a one-click toggle (sun/moon icon)

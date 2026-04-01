@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import StatusCard, { type StatusCardProps } from "./components/StatusCard";
-import { SunOutlined, MoonOutlined, EyeOutlined, EyeInvisibleOutlined, AlertOutlined } from "@ant-design/icons";
+import { SunOutlined, MoonOutlined, EyeOutlined, EyeInvisibleOutlined, AlertOutlined, BarChartOutlined } from "@ant-design/icons";
 import "./App.css";
 
-const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent" | "showPriority">[] = [
+const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent" | "showPriority" | "segmentedGauge">[] = [
   {
     title: "PROJECT: Alpha",
     subtitle: "Status: Active",
@@ -232,6 +232,7 @@ function App() {
   const [dark, setDark] = useState(false);
   const [showPercent, setShowPercent] = useState(true);
   const [showPriority, setShowPriority] = useState(true);
+  const [segmentedGauge, setSegmentedGauge] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -248,6 +249,15 @@ function App() {
         >
           {showPercent ? <EyeOutlined /> : <EyeInvisibleOutlined />}
           <span className="toolbar-label">{showPercent ? "Hide %" : "Show %"}</span>
+        </button>
+        <button
+          className={`toolbar-btn ${segmentedGauge ? "toolbar-btn-active" : ""}`}
+          onClick={() => setSegmentedGauge(!segmentedGauge)}
+          aria-label={segmentedGauge ? "Switch to solid gauges" : "Switch to segmented gauges"}
+          title={segmentedGauge ? "Solid" : "Segmented"}
+        >
+          <BarChartOutlined />
+          <span className="toolbar-label">{segmentedGauge ? "Solid" : "Segments"}</span>
         </button>
         <button
           className={`toolbar-btn ${showPriority ? "toolbar-btn-active" : ""}`}
@@ -283,7 +293,7 @@ function App() {
 
       <div className="card-grid">
         {cards.map((card, i) => (
-          <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} />
+          <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} segmentedGauge={segmentedGauge} />
         ))}
       </div>
     </div>

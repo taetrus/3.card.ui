@@ -133,6 +133,10 @@
   min-height: 10px;
 }
 
+.gauge-percent-maxed {
+  color: #f59e0b;
+}
+
 .gauge-track {
   width: 100%;
   max-width: 22px;
@@ -155,7 +159,37 @@
   background: linear-gradient(180deg, #10b981, #0d9488);
 }
 
+.gauge-fill.maxed {
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+}
+
 .gauge-fill.empty {
+  background: transparent;
+}
+
+/* Segmented gauge */
+.gauge-track-segmented {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  align-items: stretch;
+}
+
+.gauge-segment {
+  flex: 1;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.gauge-segment.filled {
+  background: #10b981;
+}
+
+.gauge-segment.maxed {
+  background: #f59e0b;
+}
+
+.gauge-segment.empty {
   background: transparent;
 }
 
