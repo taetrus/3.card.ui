@@ -19,9 +19,12 @@
   position: fixed;
   top: 16px;
   right: 16px;
+  left: 16px;
   z-index: 100;
   display: flex;
-  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .toolbar-btn {
@@ -53,6 +56,15 @@
 .toolbar-label {
   font-size: 0.75rem;
   font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .toolbar-label {
+    display: none;
+  }
+  .toolbar-btn {
+    padding: 0 8px;
+  }
 }
 
 /* ── Legend ── */
