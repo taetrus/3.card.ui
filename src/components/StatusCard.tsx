@@ -51,6 +51,8 @@ export interface StatusCardProps {
   priority?: CardPriority;
   /** Whether to show priority borders */
   showPriority?: boolean;
+  /** Compact display mode */
+  compact?: boolean;
   /** Optional expandable content */
   expandContent?: React.ReactNode;
 }
@@ -62,16 +64,28 @@ function UsageGauge({
   gauges,
   showPercent,
   segmented,
+  compact,
 }: {
   gauges: UsageGaugeItem[];
   showPercent: boolean;
   segmented: boolean;
+  compact: boolean;
 }) {
   return (
-    <div className="usage-gauge">
+    <div className={`usage-gauge ${compact ? "usage-gauge-compact" : ""}`}>
       {gauges.map((g, i) => {
         const clamped = Math.max(0, Math.min(100, g.percent));
         const isMaxed = clamped >= 100;
+
+        if (compact) {
+          const compactClass = isMaxed ? "maxed" : clamped > 0 ? "filled" : "empty";
+          return (
+            <Tooltip key={i} title={`${g.label}: ${clamped}%`}>
+              <div className={`gauge-compact-bar ${compactClass}`} />
+            </Tooltip>
+          );
+        }
+
         const colorClass = isMaxed ? "maxed" : clamped > 0 ? "filled" : "empty";
 
         return (
@@ -151,24 +165,26 @@ export default function StatusCard({
   segmentedGauge = false,
   priority,
   showPriority = false,
+  compact = false,
   expandContent,
 }: StatusCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   const priorityClass = showPriority && priority ? `card-${priority}` : "";
+  const compactClass = compact ? "status-card-compact" : "";
 
   return (
-    <div className={`status-card ${priorityClass}`}>
+    <div className={`status-card ${priorityClass} ${compactClass}`}>
       {/* Header */}
       <div className="card-header">
         <div className="header-text">
           <Text className="card-title" strong>
             {title}
           </Text>
-          <Text className="card-subtitle">{subtitle}</Text>
-          <Text className="card-metadata">{metadata}</Text>
+          {!compact && <Text className="card-subtitle">{subtitle}</Text>}
+          {!compact && <Text className="card-metadata">{metadata}</Text>}
         </div>
-        {onShare && (
+        {!compact && onShare && (
           <button
             className="icon-btn"
             onClick={onShare}
@@ -181,21 +197,20 @@ export default function StatusCard({
 
       {/* Middle: usage gauge + stats */}
       <div className="card-middle">
-        <UsageGauge gauges={usageGauges} showPercent={showGaugePercent ?? true} segmented={segmentedGauge ?? false} />
-        <div className="card-stats">
+        <UsageGauge gauges={usageGauges} showPercent={!compact && (showGaugePercent ?? true)} segmented={!compact && (segmentedGauge ?? false)} compact={compact} />
+        <div className={`card-stats ${compact ? "card-stats-compact" : ""}`}>
           {stats.map((stat, i) => (
-            <div key={i} className="stat-row">
-              <Text className="stat-label">{stat.label}</Text>
+            <Tooltip key={i} title={`${stat.label}: ${stat.value}`}>
               <Text className="stat-value">{stat.value}</Text>
-            </div>
+            </Tooltip>
           ))}
         </div>
       </div>
 
       {/* Bottom: segmented bar + expand */}
-      <div className="card-bottom">
+      <div className={`card-bottom ${compact ? "card-bottom-compact" : ""}`}>
         <SegmentedBar segments={segments} />
-        {expandContent && (
+        {!compact && expandContent && (
           <button
             className="icon-btn expand-btn"
             onClick={() => setExpanded(!expanded)}
@@ -207,7 +222,7 @@ export default function StatusCard({
       </div>
 
       {/* Expandable area */}
-      {expanded && expandContent && (
+      {!compact && expanded && expandContent && (
         <div className="card-expand">{expandContent}</div>
       )}
     </div>

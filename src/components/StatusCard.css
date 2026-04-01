@@ -307,3 +307,72 @@
     transform: translateY(0);
   }
 }
+
+/* ── Compact mode ── */
+.status-card-compact {
+  padding: 10px 14px 8px;
+  gap: 6px;
+  border-radius: 10px;
+}
+
+.status-card-compact .card-title {
+  font-size: 0.85em !important;
+}
+
+/* Compact gauges — solid, 3 discrete states, no labels */
+.usage-gauge-compact {
+  gap: 3px;
+  align-items: stretch;
+}
+
+.gauge-compact-bar {
+  flex: 1;
+  min-width: 0;
+  height: 12px;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.gauge-compact-bar.filled {
+  background: #10b981;
+}
+
+.gauge-compact-bar.maxed {
+  background: #f59e0b;
+}
+
+.gauge-compact-bar.empty {
+  background: var(--gauge-empty);
+}
+
+/* Compact stats — horizontal single line, values only */
+.card-stats-compact {
+  flex-direction: row;
+  gap: 0;
+}
+
+.card-stats-compact .stat-value {
+  font-size: 0.65rem !important;
+  white-space: nowrap;
+}
+
+.card-stats-compact .stat-value::after {
+  content: "·";
+  margin: 0 4px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.card-stats-compact .stat-value:last-child::after {
+  content: none;
+}
+
+/* Compact bottom bar */
+.card-bottom-compact .segmented-bar {
+  height: 14px;
+  border-radius: 4px;
+}
+
+.card-bottom-compact .segment-label {
+  display: none;
+}

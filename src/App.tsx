@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import StatusCard, { type StatusCardProps } from "./components/StatusCard";
-import { SunOutlined, MoonOutlined, EyeOutlined, EyeInvisibleOutlined, AlertOutlined, BarChartOutlined } from "@ant-design/icons";
+import { SunOutlined, MoonOutlined, EyeOutlined, EyeInvisibleOutlined, AlertOutlined, BarChartOutlined, CompressOutlined, ExpandOutlined } from "@ant-design/icons";
 import "./App.css";
 
-const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent" | "showPriority" | "segmentedGauge">[] = [
+const cards: Omit<StatusCardProps, "onShare" | "showGaugePercent" | "showPriority" | "segmentedGauge" | "compact">[] = [
   {
     title: "PROJECT: Alpha",
     subtitle: "Status: Active",
@@ -233,6 +233,7 @@ function App() {
   const [showPercent, setShowPercent] = useState(true);
   const [showPriority, setShowPriority] = useState(true);
   const [segmentedGauge, setSegmentedGauge] = useState(false);
+  const [compact, setCompact] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -269,6 +270,15 @@ function App() {
           <span className="toolbar-label">{showPriority ? "Alerts" : "Alerts"}</span>
         </button>
         <button
+          className={`toolbar-btn ${compact ? "toolbar-btn-active" : ""}`}
+          onClick={() => setCompact(!compact)}
+          aria-label={compact ? "Switch to normal view" : "Switch to compact view"}
+          title={compact ? "Normal" : "Compact"}
+        >
+          {compact ? <ExpandOutlined /> : <CompressOutlined />}
+          <span className="toolbar-label">{compact ? "Normal" : "Compact"}</span>
+        </button>
+        <button
           className="toolbar-btn"
           onClick={() => setDark(!dark)}
           aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
@@ -291,9 +301,9 @@ function App() {
         </div>
       )}
 
-      <div className="card-grid">
+      <div className={`card-grid ${compact ? "card-grid-compact" : ""}`}>
         {cards.map((card, i) => (
-          <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} segmentedGauge={segmentedGauge} onShare={() => {}} />
+          <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} segmentedGauge={segmentedGauge} compact={compact} onShare={() => {}} />
         ))}
       </div>
     </div>
