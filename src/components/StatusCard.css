@@ -345,26 +345,15 @@
   background: var(--gauge-empty);
 }
 
-/* Compact stats — horizontal single line, values only */
+/* Compact stats — vertical, values only */
 .card-stats-compact {
-  flex-direction: row;
-  gap: 0;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .card-stats-compact .stat-value {
   font-size: 0.65rem !important;
   white-space: nowrap;
-}
-
-.card-stats-compact .stat-value::after {
-  content: "·";
-  margin: 0 4px;
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-.card-stats-compact .stat-value:last-child::after {
-  content: none;
 }
 
 /* Compact bottom bar */
