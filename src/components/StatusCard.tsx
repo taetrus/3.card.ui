@@ -182,6 +182,7 @@ export default function StatusCard({
             {title}
           </Text>
           {!compact && <Text className="card-subtitle">{subtitle}</Text>}
+          {compact && <Text className="card-subtitle-compact">{subtitle}</Text>}
           {!compact && <Text className="card-metadata">{metadata}</Text>}
         </div>
         {!compact && onShare && (

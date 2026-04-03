@@ -169,15 +169,14 @@
 
 /* Segmented gauge */
 .gauge-track-segmented {
+  height: 31px;
   flex-direction: column-reverse;
-  gap: 1.5px;
+  gap: 1px;
   align-items: stretch;
 }
 
 .gauge-segment {
-  flex: 1 1 0%;
-  min-height: 0;
-  max-height: none;
+  flex: 0 0 3px;
   border-radius: 1.5px;
   transition: background 0.2s;
 }
@@ -310,13 +309,31 @@
 
 /* ── Compact mode ── */
 .status-card-compact {
-  padding: 10px 14px 8px;
-  gap: 6px;
+  padding: 8px 12px 6px;
+  gap: 4px;
   border-radius: 10px;
 }
 
 .status-card-compact .card-title {
   font-size: 0.85em !important;
+}
+
+.card-subtitle-compact {
+  font-size: 0.68em !important;
+  color: var(--text-muted) !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.75;
+}
+
+.status-card-compact .card-header {
+  gap: 0px;
+}
+
+.status-card-compact .header-text {
+  gap: 0px;
 }
 
 /* Compact gauges — solid, 3 discrete states, no labels */
