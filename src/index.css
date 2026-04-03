@@ -1,10 +1,73 @@
 :root {
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   font: 16px/1.5 var(--sans);
-  color-scheme: light dark;
   -webkit-font-smoothing: antialiased;
+
+  /* ── Light theme (default) ── */
+  --page-bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --shadow-sm: rgba(0, 0, 0, 0.06);
+  --shadow-md: rgba(0, 0, 0, 0.1);
+
+  --text-primary: #111827;
+  --text-strong: #374151;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+
+  --btn-bg: #f3f4f6;
+  --btn-hover: #e5e7eb;
+
+  --gauge-empty: #e5e7eb;
+
+  --toggle-bg: #e5e7eb;
+  --toggle-fg: #374151;
+
+  --border-warning: #b8860b;
+  --border-critical: #dc2626;
+  --glow-warning: rgba(184, 134, 11, 0.15);
+  --glow-critical: rgba(220, 38, 38, 0.15);
+
+  --legend-warning-dot: #b8860b;
+  --legend-critical-dot: #dc2626;
+
+  color-scheme: light;
+}
+
+/* ── Dark theme ── */
+.dark {
+  --page-bg: #0f172a;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --shadow-sm: rgba(0, 0, 0, 0.3);
+  --shadow-md: rgba(0, 0, 0, 0.5);
+
+  --text-primary: #f1f5f9;
+  --text-strong: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --btn-bg: #334155;
+  --btn-hover: #475569;
+
+  --gauge-empty: #334155;
+
+  --toggle-bg: #334155;
+  --toggle-fg: #e2e8f0;
+
+  --border-warning: #d4a017;
+  --border-critical: #ef4444;
+  --glow-warning: rgba(212, 160, 23, 0.25);
+  --glow-critical: rgba(239, 68, 68, 0.25);
+
+  --legend-warning-dot: #d4a017;
+  --legend-critical-dot: #ef4444;
+
+  color-scheme: dark;
 }
 
 body {
   margin: 0;
+  background: var(--page-bg);
+  transition: background 0.3s;
 }

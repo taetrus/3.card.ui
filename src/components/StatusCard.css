@@ -1,20 +1,39 @@
 /* ── Card container ── */
 .status-card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   padding: 18px 20px 14px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: 14px;
   width: 100%;
   box-sizing: border-box;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
 }
 
 .status-card:hover {
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 12px var(--shadow-md);
+}
+
+/* ── Priority borders ── */
+.status-card.card-warning {
+  border: 2px solid var(--border-warning);
+  box-shadow: 0 1px 4px var(--shadow-sm), 0 0 8px var(--glow-warning);
+}
+
+.status-card.card-critical {
+  border: 2px solid var(--border-critical);
+  box-shadow: 0 1px 4px var(--shadow-sm), 0 0 8px var(--glow-critical);
+}
+
+.status-card.card-warning:hover {
+  box-shadow: 0 3px 12px var(--shadow-md), 0 0 12px var(--glow-warning);
+}
+
+.status-card.card-critical:hover {
+  box-shadow: 0 3px 12px var(--shadow-md), 0 0 12px var(--glow-critical);
 }
 
 /* ── Header ── */
@@ -35,7 +54,7 @@
 .card-title {
   font-size: 1.17em !important;
   font-weight: 600 !important;
-  color: #111827 !important;
+  color: var(--text-primary) !important;
   line-height: 1.3 !important;
   white-space: nowrap;
   overflow: hidden;
@@ -44,7 +63,7 @@
 
 .card-subtitle {
   font-size: 1.17em !important;
-  color: #9ca3af !important;
+  color: var(--text-muted) !important;
   line-height: 1.3 !important;
   white-space: nowrap;
   overflow: hidden;
@@ -53,7 +72,7 @@
 
 .card-metadata {
   font-size: 0.75rem !important;
-  color: #6b7280 !important;
+  color: var(--text-secondary) !important;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: 2px;
@@ -68,8 +87,8 @@
   height: 32px;
   border: none;
   border-radius: 8px;
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--btn-bg);
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 15px;
   flex-shrink: 0;
@@ -77,41 +96,110 @@
 }
 
 .icon-btn:hover {
-  background: #e5e7eb;
-  color: #374151;
+  background: var(--btn-hover);
+  color: var(--text-primary);
 }
 
 /* ── Middle section: gauge + stats ── */
 .card-middle {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 16px;
 }
 
-/* Usage gauge */
+/* Usage gauge — 7 individual resource bars with tracks */
 .usage-gauge {
   display: flex;
   align-items: flex-end;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gauge-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 3px;
   flex: 1;
   min-width: 0;
 }
 
-.gauge-bar {
-  flex: 1;
-  min-width: 6px;
-  max-width: 18px;
-  height: 28px;
-  border-radius: 4px 4px 2px 2px;
+.gauge-percent {
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1;
+  min-height: 10px;
+}
+
+.gauge-percent-maxed {
+  color: #f59e0b;
+}
+
+.gauge-track {
+  width: 100%;
+  max-width: 22px;
+  height: 32px;
+  border-radius: 3px;
+  background: var(--gauge-empty);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.gauge-fill {
+  width: 100%;
+  min-height: 2px;
+  border-radius: 2px 2px 0 0;
+  transition: background 0.2s, height 0.3s ease;
+}
+
+.gauge-fill.filled {
+  background: linear-gradient(180deg, #10b981, #0d9488);
+}
+
+.gauge-fill.maxed {
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+}
+
+.gauge-fill.empty {
+  background: transparent;
+}
+
+/* Segmented gauge */
+.gauge-track-segmented {
+  height: 31px;
+  flex-direction: column-reverse;
+  gap: 1px;
+  align-items: stretch;
+}
+
+.gauge-segment {
+  flex: 0 0 3px;
+  border-radius: 1.5px;
   transition: background 0.2s;
 }
 
-.gauge-bar.filled {
-  background: linear-gradient(180deg, #3b82f6, #06b6d4);
+.gauge-segment.filled {
+  background: #10b981;
 }
 
-.gauge-bar.empty {
-  background: #e5e7eb;
+.gauge-segment.maxed {
+  background: #f59e0b;
+}
+
+.gauge-segment.empty {
+  background: transparent;
+}
+
+.gauge-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 /* Stats */
@@ -129,14 +217,15 @@
 }
 
 .stat-label {
+  min-width: 32px;
   font-size: 0.8rem !important;
-  color: #6b7280 !important;
+  color: var(--text-secondary) !important;
 }
 
 .stat-value {
   font-size: 0.8rem !important;
   font-weight: 500 !important;
-  color: #374151 !important;
+  color: var(--text-strong) !important;
 }
 
 /* ── Bottom section: segmented bar ── */
@@ -153,7 +242,7 @@
   border-radius: 6px;
   overflow: hidden;
   gap: 1.5px;
-  background: #f3f4f6;
+  background: var(--btn-bg);
 }
 
 .segment {
@@ -199,8 +288,12 @@
 /* ── Expandable area ── */
 .card-expand {
   padding: 10px 0 4px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--btn-bg);
   animation: slideDown 0.2s ease-out;
+}
+
+.card-expand p {
+  color: var(--text-secondary) !important;
 }
 
 @keyframes slideDown {
@@ -212,4 +305,80 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ── Compact mode ── */
+.status-card-compact {
+  padding: 8px 12px 6px;
+  gap: 4px;
+  border-radius: 10px;
+}
+
+.status-card-compact .card-title {
+  font-size: 0.85em !important;
+}
+
+.card-subtitle-compact {
+  font-size: 0.68em !important;
+  color: var(--text-muted) !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.75;
+}
+
+.status-card-compact .card-header {
+  gap: 0px;
+}
+
+.status-card-compact .header-text {
+  gap: 0px;
+}
+
+/* Compact gauges — solid, 3 discrete states, no labels */
+.usage-gauge-compact {
+  gap: 3px;
+  align-items: stretch;
+}
+
+.gauge-compact-bar {
+  flex: 1;
+  min-width: 0;
+  height: 12px;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.gauge-compact-bar.filled {
+  background: #10b981;
+}
+
+.gauge-compact-bar.maxed {
+  background: #f59e0b;
+}
+
+.gauge-compact-bar.empty {
+  background: var(--gauge-empty);
+}
+
+/* Compact stats — vertical, values only */
+.card-stats-compact {
+  flex-direction: column;
+  gap: 1px;
+}
+
+.card-stats-compact .stat-value {
+  font-size: 0.65rem !important;
+  white-space: nowrap;
+}
+
+/* Compact bottom bar */
+.card-bottom-compact .segmented-bar {
+  height: 14px;
+  border-radius: 4px;
+}
+
+.card-bottom-compact .segment-label {
+  display: none;
 }

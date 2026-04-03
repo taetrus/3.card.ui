@@ -1,73 +1,94 @@
-# React + TypeScript + Vite
+# Card UI Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive status card dashboard built with React, TypeScript, and Vite. Displays project health metrics with resource usage gauges, stats, and segmented status bars.
 
-Currently, two official plugins are available:
+## Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Light Theme — Normal View (Desktop)
+![Light theme - 3 column grid with segmented gauges](docs/screenshots/light-desktop.png)
 
-## React Compiler
+### Dark Theme — Compact View (Desktop)
+![Dark theme - 4 column compact grid](docs/screenshots/dark-desktop.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Responsive — Compact View (Tablet 768px)
+![Tablet view - 2 column compact grid](docs/screenshots/responsive-tablet.png)
 
-## Expanding the ESLint configuration
+### Responsive — Normal View (Mobile 375px)
+![Mobile view - single column with icon toolbar](docs/screenshots/responsive-mobile.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **9 Status Cards** in a responsive 3-column grid (3 cols > 2 cols > 1 col)
+- **7 Resource Gauges** per card (CPU, MEM, DSK, NET, GPU, I/O, THR) with proportional fill bars and background tracks
+- **Solid / Segmented gauge modes** — toggle between continuous fill and 8-segment blocks
+- **100% gauges highlighted** in amber/orange to signal resource saturation
+- **Percentage Labels** on gauges with a global toggle to show/hide
+- **Priority Borders** — red for critical cards, gold for warning cards, with a legend and toggle to enable/disable
+- **Compact View** — 4-column dense layout with title-only headers, mini gauges (3 states), thin status bars, and vertical stats
+- **Dark Theme** with a one-click toggle (sun/moon icon)
+- **Responsive Toolbar** — labels auto-hide on small screens, buttons wrap to fit
+- **Segmented Status Bar** showing error/warning/info distribution
+- **Expandable Cards** with additional detail panels
+- **Tooltips** on gauges and segments for precise values
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React 19** + **TypeScript 5.9**
+- **Vite 8** for dev server and bundling
+- **Ant Design 6** for icons, tooltips, and typography
+- CSS custom properties for theming (no CSS-in-JS)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm 9+
+
+### Install
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Opens a local dev server at `http://localhost:5173` with hot module replacement.
+
+### Build
+
+```bash
+npm run build
+```
+
+Outputs production files to `dist/`. TypeScript is type-checked before bundling.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+Serves the built `dist/` folder locally for testing.
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```
+src/
+  App.tsx              # Grid layout, 9 card data sets, theme + percent toggles
+  App.css              # Grid, toolbar, responsive breakpoints
+  index.css            # CSS custom properties (light/dark themes)
+  components/
+    StatusCard.tsx      # StatusCard, UsageGauge, SegmentedBar components
+    StatusCard.css      # Card, gauge, stats, segment styles
 ```

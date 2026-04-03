@@ -1,6 +1,139 @@
-/* Reset base styles for demo */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* ── App shell ── */
+.app-shell {
+  min-height: 100vh;
+  background: var(--page-bg);
+  padding: 32px 24px;
+  padding-top: 64px;
+  transition: background 0.3s;
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  left: 16px;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 2px 8px var(--shadow-sm);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.toolbar-btn:hover {
+  background: var(--btn-hover);
+  color: var(--text-primary);
+}
+
+.toolbar-btn-active {
+  border-color: var(--border-warning);
+  color: var(--text-primary);
+}
+
+.toolbar-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .toolbar-label {
+    display: none;
+  }
+  .toolbar-btn {
+    padding: 0 8px;
+  }
+}
+
+/* ── Legend ── */
+.legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-dot-critical {
+  background: var(--legend-critical-dot);
+}
+
+.legend-dot-warning {
+  background: var(--legend-warning-dot);
+}
+
+/* ── Card grid: 3 columns ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Compact grid: 4 columns, tighter gap */
+.card-grid-compact {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 1400px;
+}
+
+@media (max-width: 1100px) {
+  .card-grid-compact {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card-grid-compact {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-grid-compact {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
