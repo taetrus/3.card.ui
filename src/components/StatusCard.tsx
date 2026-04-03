@@ -185,6 +185,15 @@ export default function StatusCard({
           {compact && <Text className="card-subtitle-compact">{subtitle}</Text>}
           {!compact && <Text className="card-metadata">{metadata}</Text>}
         </div>
+        {compact && (
+          <div className="card-stats card-stats-compact">
+            {stats.map((stat, i) => (
+              <Tooltip key={i} title={`${stat.label}: ${stat.value}`}>
+                <Text className="stat-value">{stat.value}</Text>
+              </Tooltip>
+            ))}
+          </div>
+        )}
         {!compact && onShare && (
           <button
             className="icon-btn"
@@ -199,13 +208,15 @@ export default function StatusCard({
       {/* Middle: usage gauge + stats */}
       <div className="card-middle">
         <UsageGauge gauges={usageGauges} showPercent={!compact && (showGaugePercent ?? true)} segmented={!compact && (segmentedGauge ?? false)} compact={compact} />
-        <div className={`card-stats ${compact ? "card-stats-compact" : ""}`}>
-          {stats.map((stat, i) => (
-            <Tooltip key={i} title={`${stat.label}: ${stat.value}`}>
-              <Text className="stat-value">{stat.value}</Text>
-            </Tooltip>
-          ))}
-        </div>
+        {!compact && (
+          <div className="card-stats">
+            {stats.map((stat, i) => (
+              <Tooltip key={i} title={`${stat.label}: ${stat.value}`}>
+                <Text className="stat-value">{stat.value}</Text>
+              </Tooltip>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Bottom: segmented bar + expand */}
