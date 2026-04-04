@@ -301,6 +301,21 @@ function App() {
         </div>
       )}
 
+      <div className="legend">
+        <span className="legend-item">
+          <span className="legend-swatch legend-swatch-empty" />
+          Empty
+        </span>
+        <span className="legend-item">
+          <span className="legend-swatch legend-swatch-partial" />
+          Partial
+        </span>
+        <span className="legend-item">
+          <span className="legend-swatch legend-swatch-full" />
+          Full
+        </span>
+      </div>
+
       <div className={`card-grid ${compact ? "card-grid-compact" : ""}`}>
         {cards.map((card, i) => (
           <StatusCard key={i} {...card} showGaugePercent={showPercent} showPriority={showPriority} segmentedGauge={segmentedGauge} compact={compact} onShare={() => {}} />

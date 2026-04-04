@@ -134,7 +134,7 @@
 }
 
 .gauge-percent-maxed {
-  color: #f59e0b;
+  color: #ef4444;
 }
 
 .gauge-track {
@@ -160,7 +160,7 @@
 }
 
 .gauge-fill.maxed {
-  background: linear-gradient(180deg, #f59e0b, #d97706);
+  background: linear-gradient(180deg, #ef4444, #dc2626);
 }
 
 .gauge-fill.empty {
@@ -186,7 +186,7 @@
 }
 
 .gauge-segment.maxed {
-  background: #f59e0b;
+  background: #ef4444;
 }
 
 .gauge-segment.empty {
@@ -355,7 +355,7 @@
 }
 
 .gauge-compact-bar.maxed {
-  background: #f59e0b;
+  background: #ef4444;
 }
 
 .gauge-compact-bar.empty {
@@ -382,11 +382,11 @@
   border-radius: 2px;
 }
 
-/* Compact middle + bottom — no gap between gauge bars and segmented bar */
+/* Compact middle + bottom — tiny gap between gauge bars and segmented bar */
 .status-card-compact .card-middle {
   gap: 6px;
   align-items: center;
-  margin-bottom: -2px;
+  margin-bottom: 0;
 }
 
 .status-card-compact .card-bottom {
